@@ -16,10 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Dashboard" />
-        <activity android:name=".Transaction" />
-        <activity android:name=".Property" />
-        <activity android:name=".UserAccount"></activity>
+        <activity
+            android:name=".Dashboard"
+            android:label="Dashboard" />
+        <activity
+            android:name=".Transaction"
+            android:label="Transaction" />
+        <activity
+            android:name=".Property"
+            android:label="Property" />
+        <activity
+            android:name=".UserAccount"
+            android:label="User Account" />
     </application>
 
 </manifest>

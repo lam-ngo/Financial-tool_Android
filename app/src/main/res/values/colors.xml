@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary color of the app (shown in the app bar) -->
-    <color name="primary_color">#4A312A</color>
+    <color name="primary_color">#16AFCA</color>
 
     <!-- Primary dark color of the app (shown in the status bar) -->
     <color name="primary_dark_color">#2F1D1A</color>
@@ -10,14 +10,14 @@
     <color name="tan_background">#FFF7DA</color>
 
     <!-- Background color for the dashboard -->
-    <color name="section_dashboard">#FD8E09</color>
+    <color name="section_dashboard">#0080ef</color>
 
     <!-- Background color for the transaction -->
-    <color name="section_transaction">#379237</color>
+    <color name="section_transaction">#005faf</color>
 
     <!-- Background color for the property -->
-    <color name="section_property">#8800A0</color>
+    <color name="section_property">#004582</color>
 
     <!-- Background color for the user account -->
-    <color name="section_userAccount">#16AFCA</color>
+    <color name="section_userAccount">#003563</color>
 </resources>

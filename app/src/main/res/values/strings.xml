@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">FinancialTool</string>
+    <!-- Title for the application. [CHAR LIMIT=12] -->
+    <string name="app_name">Financial Tool</string>
+
+    <!-- Category name for Dashboard [CHAR LIMIT=20] -->
+    <string name="section_dashboard">Dashboard</string>
+
+    <!-- Category name for all transactions [CHAR LIMIT=20] -->
+    <string name="section_transaction">Transaction</string>
+
+    <!-- Category name for Property [CHAR LIMIT=20] -->
+    <string name="section_property">Property</string>
+
+    <!-- Category name for User Account [CHAR LIMIT=20] -->
+    <string name="section_userAccount">User Account</string>
 </resources>

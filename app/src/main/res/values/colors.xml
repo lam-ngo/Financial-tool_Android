@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Primary color of the app (shown in the app bar) -->
+    <color name="primary_color">#4A312A</color>
+
+    <!-- Primary dark color of the app (shown in the status bar) -->
+    <color name="primary_dark_color">#2F1D1A</color>
+
+    <!-- Background color for app -->
+    <color name="tan_background">#FFF7DA</color>
+
+    <!-- Background color for the dashboard -->
+    <color name="section_dashboard">#FD8E09</color>
+
+    <!-- Background color for the transaction -->
+    <color name="section_transaction">#379237</color>
+
+    <!-- Background color for the property -->
+    <color name="section_property">#8800A0</color>
+
+    <!-- Background color for the user account -->
+    <color name="section_userAccount">#16AFCA</color>
 </resources>

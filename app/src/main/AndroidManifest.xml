@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lamngo.financialtool">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,16 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Dashboard"
+            android:name=".DashboardActivity"
             android:label="Dashboard" />
         <activity
-            android:name=".Transaction"
+            android:name=".TransactionActivity"
             android:label="Transaction" />
         <activity
-            android:name=".Property"
+            android:name=".PropertyActivity"
             android:label="Property" />
         <activity
-            android:name=".UserAccount"
+            android:name=".UserAccountActivity"
             android:label="User Account" />
     </application>
 

@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="lamngo.financialtool.Dashboard">
+    android:layout_gravity="start"
+    android:stretchColumns="1,2,3"
+    tools:context="lamngo.financialtool.DashboardActivity">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <TableRow>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TextView
+            android:layout_column="1"
+            android:padding="16dp"
+            android:text="@string/dashboard_table_id" />
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TextView
+            android:layout_column="2"
+            android:padding="16dp"
+            android:text="@string/dashboard_table_date" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <TextView
+            android:layout_column="3"
+            android:padding="16dp"
+            android:text="@string/dashboard_table_product" />
+    </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/transaction_id"
+            android:layout_column="1"
+            android:padding="16dp"
+            android:text="@string/dashboard_table_id" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/transaction_date"
+            android:layout_column="2"
+            android:padding="16dp"
+            android:text="@string/dashboard_table_date" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/transaction_product"
+            android:layout_column="3"
+            android:padding="16dp"
+            android:text="@string/dashboard_table_product" />
+    </TableRow>
+
+</TableLayout>

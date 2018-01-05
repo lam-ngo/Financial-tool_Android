@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary_background"
-    android:orientation="vertical"
-    tools:context="lamngo.financialtool.MainActivity">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/dashboard_button"
-        style="@style/SectionStyle"
-        android:background="@color/section_dashboard"
-        android:text="@string/section_dashboard" />
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_background"
+        android:orientation="vertical"
+        tools:context="lamngo.financialtool.MainActivity">
 
-    <TextView
-        android:id="@+id/transaction_button"
-        style="@style/SectionStyle"
-        android:background="@color/section_transaction"
-        android:text="@string/section_transaction" />
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="240dp"
+            android:src="@drawable/hero" />
 
-    <TextView
-        android:id="@+id/property_button"
-        style="@style/SectionStyle"
-        android:background="@color/section_property"
-        android:text="@string/section_property" />
+        <TextView
+            android:id="@+id/dashboard_button"
+            style="@style/SectionStyle"
+            android:background="@color/section_dashboard"
+            android:text="@string/section_dashboard" />
 
-    <TextView
-        android:id="@+id/userAccount_button"
-        style="@style/SectionStyle"
-        android:background="@color/section_userAccount"
-        android:text="@string/section_userAccount" />
+        <TextView
+            android:id="@+id/transaction_button"
+            style="@style/SectionStyle"
+            android:background="@color/section_transaction"
+            android:text="@string/section_transaction" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/property_button"
+            style="@style/SectionStyle"
+            android:background="@color/section_property"
+            android:text="@string/section_property" />
+
+        <TextView
+            android:id="@+id/userAccount_button"
+            style="@style/SectionStyle"
+            android:background="@color/section_userAccount"
+            android:text="@string/section_userAccount" />
+
+    </LinearLayout>
+
+</ScrollView>

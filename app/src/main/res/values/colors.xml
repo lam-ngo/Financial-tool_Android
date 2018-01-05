@@ -7,7 +7,7 @@
     <color name="primary_dark_color">#2F1D1A</color>
 
     <!-- Background color for app -->
-    <color name="tan_background">#FFF7DA</color>
+    <color name="primary_background">#FFFFFF</color>
 
     <!-- Background color for the dashboard -->
     <color name="section_dashboard">#0080ef</color>

@@ -17,9 +17,12 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Last 10 transactions"
             android:textAlignment="center"
+            android:textColor="#fc0000"
             android:textSize="18sp"
-            android:text="Last 10 transactions"/>
+            android:textStyle="bold" />
 
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"

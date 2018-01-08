@@ -27,12 +27,12 @@ import java.util.ArrayList;
 import lamngo.financialtool.Transaction.TransactionEvent;
 
 /**
- * Displays information about a single earthquake.
+ * Displays Dashboard with 10 last transactions
  */
 public class DashboardActivity extends AppCompatActivity {
 
     /** Tag for the log messages */
-    public static final String LOG_TAG = MainActivity.class.getSimpleName();
+    public static final String LOG_TAG = DashboardActivity.class.getSimpleName();
 
     /** URL to query all the transactions */
     private static final String TRANSACTION_URL =
@@ -253,18 +253,13 @@ public class DashboardActivity extends AppCompatActivity {
 
                         // Extract out the title, time, and transaction values
                         transactionId = JSONTransaction.getInt("transactionId");
-                        Log.i("ID", String.valueOf(transactionId));
                         date = Long.valueOf(JSONTransaction.getLong("inputDate"));
-                        Log.i("DATE", String.valueOf(date));
                         product = JSONTransaction.getJSONObject("product");
                         productName = product.getString("productName");
-                        Log.i("PRODUCT NAME", productName);
 
                         transactionEvent = new TransactionEvent(transactionId, date, productName);
                         transactionArray.add(transactionEvent);
                     }
-
-                    Log.i("ARRAY LIST LENGTH ", String.valueOf(transactionArray.size()));
                     return transactionArray;
                 }
             } catch (JSONException e) {

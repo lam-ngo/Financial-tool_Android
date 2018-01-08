@@ -8,11 +8,15 @@ public class User {
     private int userId;
     private String userName;
     private String email;
+    private String userRole;
 
-    public User(int userId, String userName, String email) {
+    public User() {}
+
+    public User(int userId, String userName, String email, String userRole) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
+        this.userRole = userRole;
     }
 
     public int getUserId() {
@@ -39,12 +43,21 @@ public class User {
         this.email = email;
     }
 
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
+                ", userRole='" + userRole + '\'' +
                 '}';
     }
 }

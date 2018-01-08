@@ -16,9 +16,9 @@ public class TransactionEvent {
 
 
     public TransactionEvent(int transactionId, long date, String productName) {
-        transactionId = this.transactionId;
-        date = this.date;
-        productName = this.productName;
+        this.transactionId = transactionId;
+        this.date = date;
+        this.productName = productName;
     }
 
     public long getTransactionId() {
@@ -43,5 +43,14 @@ public class TransactionEvent {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionEvent{" +
+                "transactionId=" + transactionId +
+                ", date=" + date +
+                ", productName='" + productName + '\'' +
+                '}';
     }
 }

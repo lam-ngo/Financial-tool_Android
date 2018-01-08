@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -19,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import lamngo.financialtool.Transaction.TransactionEvent;
 
@@ -26,6 +30,9 @@ import lamngo.financialtool.Transaction.TransactionEvent;
  * Displays information about a single earthquake.
  */
 public class DashboardActivity extends AppCompatActivity {
+
+    /** Tag for the log messages */
+    public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     /** URL to query all the transactions */
     private static final String TRANSACTION_URL =
@@ -44,21 +51,49 @@ public class DashboardActivity extends AppCompatActivity {
     /**
      * Update the screen to display information from the given {@link TransactionEvent}.
      */
-    private void updateUi(TransactionEvent transaction) {
-        // Display the id in the UI
-        TextView idText = (TextView) findViewById(R.id.transaction_id);
-//        idText.setText(getIdString(transaction.getTransactionId()));
-        idText.setText("test ID");
+    private void updateUi(ArrayList<TransactionEvent> transactionArray) {
+        // Get the table view
+        TableLayout table = (TableLayout) findViewById(R.id.dashboard_table);
 
-        // Display the date in the UI
-        TextView dateText = (TextView) findViewById(R.id.transaction_date);
-//        dateText.setText(getDateString(transaction.getDate()));
-        dateText.setText("test date");
+        Log.i("Array length", String.valueOf(transactionArray.size()));
 
-        // Display product name in the UI
-        TextView productText = (TextView) findViewById(R.id.transaction_product);
-//        productText.setText(transaction.getProductName());
-        productText.setText("test product");
+
+
+
+//        TransactionEvent singleTransaction = new TransactionEvent(123456, 1515446378272L, "Test product");
+//        idText.setText("test ID");
+//        dateText.setText("test date");
+//        productText.setText("test product");
+
+        for (int i = 0; i < 10; i++) {
+            // Create new row
+            TableRow newRow = new TableRow(this);
+
+            // Display the id in the UI
+            TextView idText = new TextView(this);
+            idText.setLayoutParams(new TableRow.LayoutParams(1));
+            idText.setPadding(40,40,40,40);
+            // Display the date in the UI
+            TextView dateText = new TextView(this);
+            dateText.setLayoutParams(new TableRow.LayoutParams(2));
+            dateText.setPadding(40,40,40,40);
+            // Display product name in the UI
+            TextView productText = new TextView(this);
+            productText.setLayoutParams(new TableRow.LayoutParams(3));
+            productText.setPadding(40,40,40,40);
+            TransactionEvent singleTransaction;
+
+            singleTransaction = transactionArray.get(i);
+            idText.setText(getIdString(singleTransaction.getTransactionId()));
+            dateText.setText(getDateString(singleTransaction.getDate()));
+            productText.setText(singleTransaction.getProductName());
+
+            newRow.addView(idText);
+            newRow.addView(dateText);
+            newRow.addView(productText);
+            table.addView(newRow);
+        }
+
     }
 
     private String getIdString(long transactionId) {
@@ -77,10 +112,10 @@ public class DashboardActivity extends AppCompatActivity {
      * {@link AsyncTask} to perform the network request on a background thread, and then
      * update the UI with the transaction in the response.
      */
-    private class TransactionAsyncTask extends AsyncTask<URL, Void, TransactionEvent> {
+    private class TransactionAsyncTask extends AsyncTask<URL, Void, ArrayList> {
 
         @Override
-        protected TransactionEvent doInBackground(URL... urls) {
+        protected ArrayList doInBackground(URL... urls) {
             // Create URL object
             URL url = createUrl(TRANSACTION_URL);
 
@@ -89,14 +124,14 @@ public class DashboardActivity extends AppCompatActivity {
             try {
                 jsonResponse = makeHttpRequest(url);
             } catch (IOException e) {
-//                Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+                Log.e(LOG_TAG, "Problem making the HTTP request.", e);
             }
 
             // Extract relevant fields from the JSON response and create an {@link TransactionEvent} object
-            TransactionEvent transaction = extractFeatureFromJson(jsonResponse);
+            ArrayList transactionArray = extractFeatureFromJson(jsonResponse);
 
             // Return the {@link TransactionEvent} object as the result fo the {@link TransactionAsyncTask}
-            return transaction;
+            return transactionArray;
         }
 
         /**
@@ -104,12 +139,12 @@ public class DashboardActivity extends AppCompatActivity {
          * {@link TransactionAsyncTask}).
          */
         @Override
-        protected void onPostExecute(TransactionEvent transaction) {
-            if (transaction == null) {
+        protected void onPostExecute(ArrayList transactionArray) {
+            if (transactionArray == null) {
                 return;
             }
 
-            updateUi(transaction);
+            updateUi(transactionArray);
         }
 
         /**
@@ -120,7 +155,7 @@ public class DashboardActivity extends AppCompatActivity {
             try {
                 url = new URL(stringUrl);
             } catch (MalformedURLException exception) {
-//                Log.e(LOG_TAG, "Error with creating URL", exception);
+                Log.e(LOG_TAG, "Error with creating URL", exception);
                 return null;
             }
             return url;
@@ -146,17 +181,18 @@ public class DashboardActivity extends AppCompatActivity {
                 urlConnection.setReadTimeout(10000 /* milliseconds */);
                 urlConnection.setConnectTimeout(15000 /* milliseconds */);
                 urlConnection.connect();
-
+                Log.i("makeHttpRequest", "Connection sent!");
                 // If the request was successful (response code 200),
                 // then read the input stream and parse the response.
                 if (urlConnection.getResponseCode() == 200) {
+                    Log.i("makeHttpRequest", "Response received ok!");
                     inputStream = urlConnection.getInputStream();
                     jsonResponse = readFromStream(inputStream);
                 } else {
-//                    Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+                    Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
                 }
             } catch (IOException e) {
-//                Log.e(LOG_TAG, "Problem retrieving the transaction JSON results.", e);
+                Log.e(LOG_TAG, "Problem retrieving the transaction JSON results.", e);
             } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
@@ -191,34 +227,50 @@ public class DashboardActivity extends AppCompatActivity {
          * Return an {@link TransactionEvent} object by parsing out information
          * about the first transaction from the input transactionJSON string.
          */
-        private TransactionEvent extractFeatureFromJson(String allDataJSON) {
+        private ArrayList<TransactionEvent> extractFeatureFromJson(String allDataJSON) {
             // If the JSON string is empty or null, then return early.
             if (TextUtils.isEmpty(allDataJSON)) {
-                return new TransactionEvent(123456, 1513382400000L, "This is a test");
+                return new ArrayList<TransactionEvent>();
             }
 
             try {
                 JSONObject baseJsonResponse = new JSONObject(allDataJSON);
-                JSONArray transactionArray = baseJsonResponse.getJSONArray("transaction");
+                JSONArray transactionJSONArray = baseJsonResponse.getJSONArray("transaction");
 
                 // If there are results in the features array
-                if (transactionArray.length() > 0) {
-                    // Extract out the first object (which is an transaction)
-                    JSONObject firstTransaction = transactionArray.getJSONObject(0);
-                    //JSONObject properties = firstTransaction.getJSONObject("properties");
+                if (transactionJSONArray.length() > 0) {
+                    ArrayList<TransactionEvent> transactionArray = new ArrayList<>();
+                    JSONObject JSONTransaction;
+                    int transactionId;
+                    long date;
+                    String productName;
+                    JSONObject product;
+                    TransactionEvent transactionEvent;
 
-                    // Extract out the title, time, and transaction values
-                    int transactionId = firstTransaction.getInt("transactionId");
-                    long date = firstTransaction.getLong("inputDate");
-                    String product = firstTransaction.getString("product");
+                    for(int i = 0; i < 10; i++) {
+                        // Extract out each transaction and save data into transactionEvent
+                        JSONTransaction = transactionJSONArray.getJSONObject(i);
 
-                    // Create a new {@link TransactionEvent} object
-                    return new TransactionEvent(transactionId, date, product);
+                        // Extract out the title, time, and transaction values
+                        transactionId = JSONTransaction.getInt("transactionId");
+                        Log.i("ID", String.valueOf(transactionId));
+                        date = Long.valueOf(JSONTransaction.getLong("inputDate"));
+                        Log.i("DATE", String.valueOf(date));
+                        product = JSONTransaction.getJSONObject("product");
+                        productName = product.getString("productName");
+                        Log.i("PRODUCT NAME", productName);
+
+                        transactionEvent = new TransactionEvent(transactionId, date, productName);
+                        transactionArray.add(transactionEvent);
+                    }
+
+                    Log.i("ARRAY LIST LENGTH ", String.valueOf(transactionArray.size()));
+                    return transactionArray;
                 }
             } catch (JSONException e) {
-//                Log.e(LOG_TAG, "Problem parsing the transaction JSON results", e);
+                Log.e(LOG_TAG, "Problem parsing the transaction JSON results", e);
             }
-            return new TransactionEvent(123456, 1513382400000L, "This is a test");
+            return new ArrayList<TransactionEvent>();
         }
     }
 }

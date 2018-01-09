@@ -82,7 +82,7 @@ public class DashboardActivity extends AppCompatActivity {
             TransactionEvent singleTransaction;
 
             singleTransaction = transactionArray.get(i);
-            idText.setText(getIdString(singleTransaction.getTransactionId()));
+            idText.setText(String.valueOf(singleTransaction.getTransactionId()));
             dateText.setText(getDateString(singleTransaction.getDate()));
             productText.setText(singleTransaction.getProductName());
 
@@ -95,10 +95,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         TextView totalSaleText = (TextView) findViewById(R.id.dashboard_total_sale);
         totalSaleText.setText("Total sales for the last 10 transactions was € " + new DecimalFormat("##.##").format(totalSale));
-    }
-
-    private String getIdString(long transactionId) {
-        return String.valueOf(transactionId);
     }
 
     /**
@@ -166,7 +162,7 @@ public class DashboardActivity extends AppCompatActivity {
          * Make an HTTP request to the given URL and return a String as the response.
          */
         private String makeHttpRequest(URL url) throws IOException {
-            String jsonResponse = "Loading...";
+            String jsonResponse = "";
 
             // If the URL is null, then return early.
             if (url == null) {
@@ -231,7 +227,7 @@ public class DashboardActivity extends AppCompatActivity {
         private ArrayList<TransactionEvent> extractFeatureFromJson(String allDataJSON) {
             // If the JSON string is empty or null, then return early.
             if (TextUtils.isEmpty(allDataJSON)) {
-                return new ArrayList<TransactionEvent>();
+                return new ArrayList();
             }
 
             try {

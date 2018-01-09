@@ -21,6 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -54,11 +55,8 @@ public class DashboardActivity extends AppCompatActivity {
     private void updateUi(ArrayList<TransactionEvent> transactionArray) {
         // Get the table view
         TableLayout table = (TableLayout) findViewById(R.id.dashboard_table);
-
+        Double totalSale = 0.0;
         Log.i("Array length", String.valueOf(transactionArray.size()));
-
-
-
 
 //        TransactionEvent singleTransaction = new TransactionEvent(123456, 1515446378272L, "Test product");
 //        idText.setText("test ID");
@@ -92,8 +90,11 @@ public class DashboardActivity extends AppCompatActivity {
             newRow.addView(dateText);
             newRow.addView(productText);
             table.addView(newRow);
+            totalSale += singleTransaction.getPrice();
         }
 
+        TextView totalSaleText = (TextView) findViewById(R.id.dashboard_total_sale);
+        totalSaleText.setText("Total sales for the last 10 transactions was € " + new DecimalFormat("##.##").format(totalSale));
     }
 
     private String getIdString(long transactionId) {
@@ -244,6 +245,7 @@ public class DashboardActivity extends AppCompatActivity {
                     int transactionId;
                     long date;
                     String productName;
+                    Double productPrice;
                     JSONObject product;
                     TransactionEvent transactionEvent;
 
@@ -256,8 +258,9 @@ public class DashboardActivity extends AppCompatActivity {
                         date = Long.valueOf(JSONTransaction.getLong("inputDate"));
                         product = JSONTransaction.getJSONObject("product");
                         productName = product.getString("productName");
+                        productPrice = product.getDouble("price");
 
-                        transactionEvent = new TransactionEvent(transactionId, date, productName);
+                        transactionEvent = new TransactionEvent(transactionId, date, productName, productPrice);
                         transactionArray.add(transactionEvent);
                     }
                     return transactionArray;

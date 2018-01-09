@@ -5,23 +5,19 @@ package lamngo.financialtool.Transaction;
  */
 
 public class TransactionEvent {
-    /** TransactionActivity ID */
-    public int transactionId;
+    private int transactionId;
+    private long date;
+    private String productName;
+    private Double price;
 
-    /** TransactionActivity date in milliseconds*/
-    public long date;
-
-    /** TransactionActivity product name */
-    public String productName;
-
-
-    public TransactionEvent(int transactionId, long date, String productName) {
+    public TransactionEvent(int transactionId, long date, String productName, Double price) {
         this.transactionId = transactionId;
         this.date = date;
         this.productName = productName;
+        this.price = price;
     }
 
-    public long getTransactionId() {
+    public int getTransactionId() {
         return transactionId;
     }
 
@@ -45,12 +41,21 @@ public class TransactionEvent {
         this.productName = productName;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "TransactionEvent{" +
                 "transactionId=" + transactionId +
                 ", date=" + date +
                 ", productName='" + productName + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

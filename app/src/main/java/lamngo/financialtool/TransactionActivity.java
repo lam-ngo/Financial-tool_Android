@@ -235,6 +235,7 @@ public class TransactionActivity extends AppCompatActivity {
                     int transactionId;
                     long date;
                     String productName;
+                    Double productPrice;
                     JSONObject product;
                     TransactionEvent transactionEvent;
 
@@ -247,8 +248,9 @@ public class TransactionActivity extends AppCompatActivity {
                         date = Long.valueOf(JSONTransaction.getLong("inputDate"));
                         product = JSONTransaction.getJSONObject("product");
                         productName = product.getString("productName");
+                        productPrice = product.getDouble("price");
 
-                        transactionEvent = new TransactionEvent(transactionId, date, productName);
+                        transactionEvent = new TransactionEvent(transactionId, date, productName, productPrice);
                         transactionArray.add(transactionEvent);
                     }
                     return transactionArray;
